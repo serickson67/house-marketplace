@@ -155,6 +155,15 @@ function CreateListing() {
       });
     };
 
+    // console.log(
+    //   await Promise.all([...images].map((image) => storeImage(image))).catch(
+    //     () => {
+    //       setLoading(false);
+    //       toast.error('Images not uploaded :(');
+    //       return;
+    //     }
+    //   )
+    // );
     const imgUrls = await Promise.all(
       [...images].map((image) => storeImage(image))
     ).catch(() => {
@@ -163,6 +172,7 @@ function CreateListing() {
       return;
     });
 
+    // console.log(imgUrls);
     const formDataCopy = {
       ...formData,
       imgUrls,
@@ -174,7 +184,6 @@ function CreateListing() {
     delete formDataCopy.images;
     delete formDataCopy.address;
     !formDataCopy.offer && delete formDataCopy.discountedPrice;
-
     const docRef = await addDoc(collection(db, 'listings'), formDataCopy);
 
     setLoading(false);
