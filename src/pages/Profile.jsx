@@ -93,12 +93,14 @@ function Profile() {
     if (window.confirm('Are you sure you want to delete?')) {
       await deleteDoc(doc(db, 'listings', listingId));
       const updatedListings = listings.filter(
-        (listing) => listing.id != listingId
+        (listing) => listing.id !== listingId
       );
       setListings(updatedListings);
       toast.success('Successfully deleted listing');
     }
   };
+
+  const onEdit = (listingId) => navigate(`/edit-listing/${listingId}`);
 
   // What is the '?' used for??
   // console.log(listings?.length);
@@ -159,6 +161,7 @@ function Profile() {
                   id={listing.id}
                   key={listing.id}
                   onDelete={() => onDelete(listing.id)}
+                  onEdit={() => onEdit(listing.id)}
                 />
               ))}
             </ul>
